@@ -64,6 +64,35 @@ function addRole() {
     })
 };
 
+function addEmployee() {
+    inqurier
+    .prompt([
+        {
+            type: 'input',
+            message: 'What is the employees first name?',
+            name: 'newEmpName'
+        },
+        {
+            type: 'input',
+            message: 'What is the employees last name?',
+            name: 'newEmpLast'
+        },
+        {
+            type: 'input',
+            message: 'What is the employees role?',
+            name: 'newEmpSalary'
+        },
+        {
+            type: 'input',
+            message: 'Who is the employees manager?',
+            name: 'newEmpManager'
+        }
+    ])
+    .then((data) => {
+        db.execute('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [data.newEmpName, data.newEmpLast, data.newEmpSalary, data.newEmpManager]);
+    })
+};
+
 module.exports = {
 
 
@@ -94,6 +123,8 @@ module.exports = {
             addDepartment();
         } else if (data.welcomeChoice === "add a role") {
             addRole();
+        } else if (data.welcomeChoice === "add an employee") {
+            addEmployee();
         }
     }
 }
