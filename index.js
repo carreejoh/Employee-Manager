@@ -3,30 +3,13 @@ const mysql = require('mysql2');
 const utils = require('./server.js');
 
 
-const db = mysql.createConnection(
-    {
-        host: 'localhost',
-        user: 'root',
-        password: ']TRGLfgT9rfUTp`B-C2a0;OUM=alSX.{',
-        database: 'employees_db'
-    },
-);
-
-
-// db.query('SELECT * FROM role', (err, result) => {
-//     if(err) {
-//         console.log(err);
-//     }
-//     console.log(result);
-// })
-
-
 
 
 
 function handleFirst(data) {
-    let responseReturn = utils.handleInq(data);
-    console.log(responseReturn);
+    // let responseReturn = utils.handleInq(data);
+    // console.log(responseReturn);
+    utils.handleInq(data);
 }
 
 function init() {
