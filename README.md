@@ -38,3 +38,7 @@ Contact Me:
 carreejoh4637@mailbox.org 
 
 https://github.com/carreejoh
+
+# Screenshots/Video
+
+[Employee Manager Video HW.webm](https://github.com/carreejoh/Employee-Manager/assets/122936256/49a5cd09-feda-4754-9b4e-25176e9f4674)
