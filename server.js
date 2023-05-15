@@ -43,6 +43,11 @@ function addRole() {
             message: 'What department is this role in?',
             name: 'newRoleDepartment',
             choices: ['Engineering', 'Management', 'Sales', 'Maintenance']
+        },
+        {
+            type: 'input',
+            message: 'What is the ID of this role?',
+            name: 'newRoleID'
         }
 
     ])
@@ -59,7 +64,7 @@ function addRole() {
             }
         };
         let newID = departmentID();
-        db.execute('INSERT INTO role (title, salary, department_id) VALUES (?, ?, ?)', [data.newRoleName, data.newRoleSalary, newID]);
+        db.execute('INSERT INTO role (id, title, salary, department_id) VALUES (?, ?, ?, ?)', [data.newRoleID, data.newRoleName, data.newRoleSalary, newID]);
         console.log("Role has been added");
     })
 };
@@ -79,17 +84,48 @@ function addEmployee() {
         },
         {
             type: 'input',
-            message: 'What is the employees role?',
+            message: 'What is the employees roles ID?',
             name: 'newEmpSalary'
         },
         {
             type: 'input',
-            message: 'Who is the employees manager?',
+            message: 'Who is the employees manager and whats their ID?',
             name: 'newEmpManager'
         }
     ])
     .then((data) => {
         db.execute('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?, ?, ?, ?)', [data.newEmpName, data.newEmpLast, data.newEmpSalary, data.newEmpManager]);
+    })
+};
+
+async function updateEmployee() {
+    db.execute('SELECT * FROM employee', (err, result) => {
+        if(err) {
+            console.log(err);
+        }
+        console.log(result);
+    db.execute('SELECT * FROM role', (err, result) => {
+        if(err) {
+            console.log(err);
+        }
+        console.log(result);
+        })
+    inqurier
+    .prompt([
+        {
+            type: 'input',
+            message: 'Whats the employees ID?',
+            name: 'employeeChoice',
+        },
+        {
+            type: 'input',
+            message: 'Whats the new roles ID?',
+            name: 'newEmployeeRole'
+        }
+    ]) .then(function(data) {
+        db.execute('UPDATE employee SET role_id = ? WHERE id = ?', [data.newEmployeeRole, data.employeeChoice])
+    })
+   
     })
 };
 
@@ -125,6 +161,8 @@ module.exports = {
             addRole();
         } else if (data.welcomeChoice === "add an employee") {
             addEmployee();
+        } else if (data.welcomeChoice === "update an employee role") {
+            updateEmployee();
         }
     }
 }
